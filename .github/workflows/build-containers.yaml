@@ -162,8 +162,8 @@ jobs:
               continue
             fi
 
-            for arch in amd64 arm64; do
-
+            #for arch in amd64 arm64; do
+            for arch in amd64; do
               item="$(jq -cn \
                 --arg df "$file" \
                 --arg an "$app_name" \
