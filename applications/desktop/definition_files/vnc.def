@@ -1,4 +1,4 @@
-# tag: 1.2
+# tag: 1.3
 
 Bootstrap: docker
 From: rockylinux/rockylinux:9
@@ -122,8 +122,14 @@ sed -i.bak -E "s/UI.initSetting\('resize',[[:space:]]*'off'\)/UI.initSetting('re
 # script used by workflow
 cat >/usr/local/bin/start-vncserver.sh <<'__EOF__'
 #!/bin/sh
+mkdir -p "${HOME}/.vnc"
+chown -R $(whoami) "${HOME}/.vnc"
+chmod 700 "${HOME}/.vnc"
+umask 007
+export USER=$(whoami)
+
 /usr/bin/novnc_proxy --vnc localhost:5900 --listen ${1:-6080} &
-PROXY=$?
+PROXY=$!
 /opt/TurboVNC/bin/vncserver -securitytypes tlsnone,x509none,none -wm xfce -fg ${VNCSERVER_ARGS} :0
 kill $PROXY
 __EOF__
