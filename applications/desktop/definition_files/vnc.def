@@ -134,8 +134,3 @@ PROXY=$!
 kill $PROXY
 __EOF__
 chmod +x /usr/local/bin/start-vncserver.sh
-
-
-# /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
-
-%runscript
